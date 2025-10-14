@@ -30,12 +30,13 @@ PLAYER_INDEX_GEN = cycle([0, 1, 2, 1])
 
 
 class GameState:
-    def __init__(self):
+    def __init__(self, render = True):
         self.score = self.playerIndex = self.loopIter = 0
         self.playerx = int(SCREENWIDTH * 0.2)
         self.playery = int((SCREENHEIGHT - PLAYER_HEIGHT) / 2)
         self.basex = 0
         self.baseShift = IMAGES['base'].get_width() - BACKGROUND_WIDTH
+        self.render = render # 控制是否显示游戏画面（训练时设False，调试时设True）
 
         newPipe1 = getRandomPipe()
         newPipe2 = getRandomPipe()
@@ -141,6 +142,7 @@ class GameState:
         image_data = pygame.surfarray.array3d(pygame.display.get_surface())
 
         # === 可视化调试：在屏幕上方显示当前动作 ===
+        render = self.render
         font = pygame.font.SysFont('arial', 18)
         if input_actions[1] == 1:
             action_text = "FLAP 🪽"
@@ -149,12 +151,14 @@ class GameState:
             action_text = "FALL 💨"
             text_color = (135, 206, 250) # 浅蓝色
 
+        # ===== 在画面上显示得分 =====
+        font = pygame.font.Font(pygame.font.get_default_font(), 24)  # 字体大小
+        score_surface = font.render(f"Score: {self.score}", True, (255, 255, 255))  # 白色文字
+        SCREEN.blit(score_surface, (150, 10))  # 坐标 
+
         text_surface = font.render(action_text, True, text_color)
         SCREEN.blit(text_surface, (10, 10))
         ##########################################################
-        
-        # === 控制是否渲染画面 ===
-        render = False # ← 控制是否显示游戏画面（训练时设False，调试时设True）
 
         if render:
             pygame.display.update()
