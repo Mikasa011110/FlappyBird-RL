@@ -6,6 +6,8 @@
 ## Training Performance
 - ![alt text](training_curve.png)
 
+## Demo
+- Specific training demonstrations can be viewed at this link: https://www.bilibili.com/video/BV1pq4YznEB6/?spm_id_from=333.1387.homepage.video_card.click&vd_source=03153dc298add80c6d4d655915ec7cd2
 
 ##  References
 - **Mnih, V., Kavukcuoglu, K., Silver, D., et al. (2015).**  
